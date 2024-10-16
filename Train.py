@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='SupRes Project.\nPart B: Load Data and Train NNs')
     parser.add_argument('--sw',          type=int, default=1, help='Switch for different ways to build the network')
     parser.add_argument('--NN_type',     type=str, default='DEAFSR', help='SRPCNN, DEAFSR')
-    parser.add_argument('--dataset_type',type=str, default='1Hzx20', help='SRPD100x10, 1Hzx10, SRPD50x20, 1Hzx20')
+    parser.add_argument('--dataset_type',type=str, default='UNiLABx20', help='SRPD100x10, UNiLABx10, SRPD50x20, UNiLABx20')
     ###### Paras for Networks ############
     parser.add_argument('--alpha',      type=int, default=20, help='Upsampling factor')
     parser.add_argument('--epochs',     type=int, default=500, help='Number of epochs to train for')
@@ -87,12 +87,18 @@ if __name__ == '__main__':
     torch.backends.cudnn.deterministic = True
 
     # Load data and create data loaders
-    if args.dataset_type == '1Hzx10':
-        dataset_dir = f'{rootDir}/datasets/data1Hz/'
-        train_input = torch.from_numpy(np.load(dataset_dir + 'train_input_1Hzx10.npy')).float()
-        train_label = torch.from_numpy(np.load(dataset_dir + 'train_label_1Hzx10.npy')).float()
-        val_input   = torch.from_numpy(np.load(dataset_dir + 'val_input_1Hzx10.npy')).float()
-        val_label   = torch.from_numpy(np.load(dataset_dir + 'val_label_1Hzx10.npy')).float()        
+    if args.dataset_type == 'UNiLABx10':
+        dataset_dir = f'{rootDir}/datasets/dataUNiLAB/'
+        train_input = torch.from_numpy(np.load(dataset_dir + 'train_input_UNiLABx10.npy')).float()
+        train_label = torch.from_numpy(np.load(dataset_dir + 'train_label_UNiLAB.npy')).float()
+        val_input   = torch.from_numpy(np.load(dataset_dir + 'val_input_UNiLABx10.npy')).float()
+        val_label   = torch.from_numpy(np.load(dataset_dir + 'val_label_UNiLAB.npy')).float()        
+    elif args.dataset_type == 'UNiLABx20':
+        dataset_dir = f'{rootDir}/datasets/dataUNiLAB/'
+        train_input = torch.from_numpy(np.load(dataset_dir + 'train_input_UNiLABx20.npy')).float()
+        train_label = torch.from_numpy(np.load(dataset_dir + 'train_label_UNiLAB.npy')).float()
+        val_input   = torch.from_numpy(np.load(dataset_dir + 'val_input_UNiLABx20.npy')).float()
+        val_label   = torch.from_numpy(np.load(dataset_dir + 'val_label_UNiLAB.npy')).float()  
     elif args.dataset_type == 'SRPD100x10':
         dataset_dir = f'{rootDir}/datasets/dataSRP/'
         train_input = torch.from_numpy(np.load(dataset_dir + 'train_input_100x10.npy')).float()
@@ -106,12 +112,6 @@ if __name__ == '__main__':
         val_input   = torch.from_numpy(np.load(dataset_dir + 'val_input_50x20.npy')).float()
         val_label   = torch.from_numpy(np.load(dataset_dir + 'val_label_50x20.npy')).float()
         pass
-    elif args.dataset_type == '1Hzx20':
-        dataset_dir = f'{rootDir}/datasets/data1Hz/'
-        train_input = torch.from_numpy(np.load(dataset_dir + 'train_input_1Hzx20.npy')).float()
-        train_label = torch.from_numpy(np.load(dataset_dir + 'train_label_1Hzx20.npy')).float()
-        val_input   = torch.from_numpy(np.load(dataset_dir + 'val_input_1Hzx20.npy')).float()
-        val_label   = torch.from_numpy(np.load(dataset_dir + 'val_label_1Hzx20.npy')).float()  
     else:
         raise ValueError('Unknown dataset type!')
     
