@@ -1,0 +1,14 @@
+.gitignore
+__pycache__/
+.vscode/
+datasets/
+plots/
+**/*.png
+**/*.pth
+**/*.csv
+**/*.npy
+**/*.args
+**/*.txt
+**/*.zip
+**/*.pt
+**/*.pkl
